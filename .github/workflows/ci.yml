@@ -1,12 +1,10 @@
-Pipeline
-
-
-name: Develop CI - On Push to origin/main
+name: CI
 
 on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   ci:
