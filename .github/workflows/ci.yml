@@ -64,7 +64,7 @@ jobs:
           name: app1-artifact
           path: dist/apps/app1
 
-deploy-app1:
+  deploy-app1:
     name: ${{ contains(needs.setup.outputs.affected_apps, 'app1' }}
     needs: setup
     runs-on: ubuntu-latest
