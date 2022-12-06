@@ -74,6 +74,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Download app1 Artifacts
+        needs: build
         uses: actions/download-artifact@v2
         with:
           name: app1-artifact
