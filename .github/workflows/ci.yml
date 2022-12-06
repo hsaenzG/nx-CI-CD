@@ -63,3 +63,29 @@ jobs:
         with:
           name: app1-artifact
           path: dist/apps/app1
+
+deploy-app1:
+    name: ${{ contains(needs.setup.outputs.affected_apps, 'app1' }}
+    needs: setup
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps: 
+      uses: actions/checkout@v2
+
+      - name: Download app1 Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: app1-artifact
+          path: dist/apps/app1
+
+      - name: Deploy S3
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET_APP1 }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.S3_BUCKET_REGION }}
+          SOURCE_DIR: 'dist/apps/app1'
