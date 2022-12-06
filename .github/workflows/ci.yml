@@ -65,7 +65,7 @@ jobs:
           path: dist/apps/app1
 
   deploy-app1:
-    name: deploy app1 #${{ contains(needs.setup.outputs.affected_apps, 'app1') }}
+    name: deploy app1 # ${{ contains(needs.setup.outputs.affected_apps, 'app1') }}
     needs: ci
     runs-on: ubuntu-latest
     timeout-minutes: 20
