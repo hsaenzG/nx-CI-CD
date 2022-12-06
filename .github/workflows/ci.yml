@@ -58,13 +58,14 @@ jobs:
           echo "::set-output name=affected_apps::$(./node_modules/.bin/nxaffected:apps --plain)"
 
       - name: Saving app1 build as artifact
+        if: ${{ contains( steps.get-affected-apps.outputs.affected_apps,'app1') }}
         uses: actions/upload-artifact@v2
         with:
           name: app1-artifact
           path: dist/apps/app1
 
   deploy-app1:
-    name: deploy
+    name: ${{ contains(needs.setup.outputs.affected_apps, 'app1') }}
     needs: ci
     runs-on: ubuntu-latest
     timeout-minutes: 20
