@@ -42,12 +42,6 @@ jobs:
 
       - name: Derive appropiate SHAs for base and head for `nx affected`commands
         uses: nrwl/nx-set-shas@v3
-      
-      - name: Running lint
-        run: npx nx affected --target=lint --parallel=3
-
-      - name: Running tests
-        run: npx nx affected --target=test --parallel=3 --ci --code-coverage
         
       - name: Building app
         run: npx nx affected --target=build --parallel=3 
